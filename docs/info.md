@@ -13,8 +13,8 @@ Generate VGA output displaying Ishihara plates
 
 ## How to test
 
-Explain how to use your project
+This project will work out of the box. Just connect a VGA display via TinyVGA PMOD
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+TinyVGA PMOD to connect to a VGA display
