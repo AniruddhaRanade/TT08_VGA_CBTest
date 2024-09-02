@@ -85,7 +85,7 @@ module tt_um_example (
     assign B = (video_active && in_circle) ? {combined[5] ^ pix_y[7], moving_x[1] & moving_y[2]} : 2'b00;
 
 
-  
+  /*
   always @(posedge vsync) begin
     if (~rst_n) begin
       counter <= 0;
@@ -93,5 +93,5 @@ module tt_um_example (
       counter <= counter + 1;
     end
   end
-
+*/
 endmodule
