@@ -5,15 +5,15 @@
 
 `default_nettype none
 
-module tt_um_example (
-    input  wire [7:0] ui_in,    // Dedicated inputs
-    output wire [7:0] uo_out,   // Dedicated outputs
-    input  wire [7:0] uio_in,   // IOs: Input path
-    output wire [7:0] uio_out,  // IOs: Output path
-    output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
-    input  wire       ena,      // always 1 when the design is powered, so you can ignore it
-    input  wire       clk,      // clock
-    input  wire       rst_n     // reset_n - low to reset
+module tt_um_vga_example(
+  input  wire [7:0] ui_in,    // Dedicated inputs
+  output wire [7:0] uo_out,   // Dedicated outputs
+  input  wire [7:0] uio_in,   // IOs: Input path
+  output wire [7:0] uio_out,  // IOs: Output path
+  output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
+  input  wire       ena,      // always 1 when the design is powered, so you can ignore it
+  input  wire       clk,      // clock
+  input  wire       rst_n     // reset_n - low to reset
 );
 
   // VGA signals
@@ -48,13 +48,13 @@ module tt_um_example (
     .vpos(pix_y)
   );
   
+  wire [7:4] moving_x = pix_x + counter;
 
-    wire [9:0] moving_x = pix_x + counter;
-
-    assign R = video_active ? {moving_x[5], pix_y[2]} : 2'b00;
-    assign G = video_active ? {moving_x[6], pix_y[2]} : 2'b00;
-    assign B = video_active ? {moving_x[7], pix_y[5]} : 2'b00;
-    
+  assign R = video_active ? {moving_x[7], pix_y[2]} : 2'b00;
+  assign G = video_active ? {moving_x[5], pix_y[3]} : 2'b00;
+  assign B = video_active ? {moving_x[6], pix_y[5]} : 2'b00;
+  assign R = video_active ? {moving_x[4], pix_y[4]} : 2'b00;
+  
   always @(posedge vsync) begin
     if (~rst_n) begin
       counter <= 0;
