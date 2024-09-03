@@ -23,8 +23,8 @@ module tt_um_vga_example(
   wire [1:0] G;
   wire [1:0] B;
   wire video_active;
-  wire [7:0] pix_x;
-  wire [5:2] pix_y;
+  wire [9:0] pix_x;
+  wire [9:0] pix_y;
 
   // TinyVGA PMOD
   assign uo_out = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
