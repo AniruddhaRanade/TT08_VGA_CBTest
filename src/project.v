@@ -23,7 +23,7 @@ module tt_um_vga_example(
   wire [1:0] G;
   wire [1:0] B;
   wire video_active;
-  wire [9:0] pix_x;
+  wire [7:0] pix_x;
   wire [5:2] pix_y;
 
   // TinyVGA PMOD
@@ -36,7 +36,7 @@ module tt_um_vga_example(
   // Suppress unused signals warning
   wire _unused_ok = &{ena, ui_in, uio_in};
 
-  reg [9:0] counter;
+  reg [7:0] counter;
 
   hvsync_generator hvsync_gen(
     .clk(clk),
@@ -48,7 +48,7 @@ module tt_um_vga_example(
     .vpos(pix_y)
   );
   
-  wire [7:4] moving_x = pix_x + counter;
+  wire [7:0] moving_x = pix_x + counter;
 
   assign R = video_active ? {moving_x[7], pix_y[2]} : 2'b00;
   assign G = video_active ? {moving_x[5], pix_y[3]} : 2'b00;
