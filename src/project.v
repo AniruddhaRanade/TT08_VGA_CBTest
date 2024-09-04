@@ -48,63 +48,11 @@ module tt_um_vga_example(
     .vpos(pix_y)
   );
   
-  parameter [9:0] CIRCLE_CENTER_X = 320; // Center x-coordinate
-  parameter [9:0] CIRCLE_CENTER_Y = 240; // Center y-coordinate
-  parameter [9:0] CIRCLE_RADIUS = 200;   // Radius of the circle
-  
-  parameter [9:0] NUMBER_2_X_MIN = 220; // Min x-coordinate for number "2"
-  parameter [9:0] NUMBER_2_X_MAX = 280; // Max x-coordinate for number "2"
-  parameter [9:0] NUMBER_2_Y_MIN = 150; // Min y-coordinate for number "2"
-  parameter [9:0] NUMBER_2_Y_MAX = 300; // Max y-coordinate for number "2"
-  
-  parameter [9:0] NUMBER_1_X_MIN = 350; // Min x-coordinate for number "1"
-  parameter [9:0] NUMBER_1_X_MAX = 380; // Max x-coordinate for number "1"
-  parameter [9:0] NUMBER_1_Y_MIN = 150; // Min y-coordinate for number "1"
-  parameter [9:0] NUMBER_1_Y_MAX = 300; // Max y-coordinate for number "1"
-  parameter [9:0] LINE_THICKNESS = 15;   // Thickness for the vertical line
-  
   wire [9:0] moving_x = pix_x + counter;
-  wire [9:0] moving_y = pix_y + (counter >> 2); 
-  wire [9:0] combined = moving_x ^ moving_y;   
-  
-  wire [19:0] distance_squared = (pix_x - CIRCLE_CENTER_X) * (pix_x - CIRCLE_CENTER_X) + 
-                                 (pix_y - CIRCLE_CENTER_Y) * (pix_y - CIRCLE_CENTER_Y);
-  
-  wire in_circle = (distance_squared <= (CIRCLE_RADIUS * CIRCLE_RADIUS));
-  
-  wire in_number_2 = (pix_x >= NUMBER_2_X_MIN && pix_x <= NUMBER_2_X_MAX &&
-                      pix_y >= NUMBER_2_Y_MIN && pix_y <= NUMBER_2_Y_MAX) &&
-                     (
-                      ((pix_y >= NUMBER_2_Y_MIN) && (pix_y < NUMBER_2_Y_MIN + LINE_THICKNESS)) ||               // Top horizontal line with thickness
-                      ((pix_y >= NUMBER_2_Y_MIN + 75 - (LINE_THICKNESS >> 1)) && (pix_y <= NUMBER_2_Y_MIN + 75 + (LINE_THICKNESS >> 1)) && pix_x <= NUMBER_2_X_MAX ) || // Middle horizontal line with thickness
-                      ((pix_y >= NUMBER_2_Y_MAX - LINE_THICKNESS) && (pix_y <= NUMBER_2_Y_MAX)) ||              // Bottom horizontal line with thickness
-                      ((pix_x >= NUMBER_2_X_MAX - 10) && (pix_y <= NUMBER_2_Y_MIN + 75)) ||                    // Top right curve of "2"
-                      ((pix_y > NUMBER_2_Y_MIN + 75) && (pix_x <= NUMBER_2_X_MIN + 10))                        // Downward slope from middle left
-                     );
-  
-  wire in_number_1 = (pix_x >= NUMBER_1_X_MIN && pix_x <= NUMBER_1_X_MAX &&
-                      pix_y >= NUMBER_1_Y_MIN && pix_y <= NUMBER_1_Y_MAX) &&
-                     ((pix_x >= NUMBER_1_X_MIN + (LINE_THICKNESS >> 1)) && 
-                      (pix_x <= NUMBER_1_X_MAX - (LINE_THICKNESS >> 1))); 
-  
-  wire is_in_21_shape = in_circle && (in_number_2 || in_number_1);
-  
-  wire [1:0] R_21 = {moving_x[3] & pix_y[6], moving_y[8] | moving_x[1]};
-  wire [1:0] G_21 = {moving_x[0] ^ combined[6], moving_y[1] | pix_y[5]};
-  wire [1:0] B_21 = {combined[8] & pix_y[4], moving_y[7] ~^ moving_x[6]};
-  
-  wire [1:0] R_bg = {pix_y[3] | combined[4], moving_y[8] ~^ pix_x[0]};
-  wire [1:0] G_bg = {moving_x[1] & pix_y[9], combined[7] | moving_y[4]};
-  wire [1:0] B_bg = {combined[6] ~| pix_y[2], moving_x[9] ^ moving_y[5]};
-  
-  assign R = (video_active && is_in_21_shape) ? R_21 : 
-             (video_active && in_circle) ? R_bg : 2'b00;
-  
-  assign G = (video_active && is_in_21_shape) ? G_21 : 
-             (video_active && in_circle) ? G_bg : 2'b00;
-  
-  assign B = (video_active && is_in_21_shape) ? B_21 : 
-             (video_active && in_circle) ? B_bg : 2'b00;
+
+  assign R = video_active ? {moving_x[5], pix_y[2]} : 2'b00;
+  assign G = video_active ? {moving_x[6], pix_y[2]} : 2'b00;
+  assign B = video_active ? {moving_x[7], pix_y[5]} : 2'b00;
   
   always @(posedge vsync) begin
     if (~rst_n) begin
