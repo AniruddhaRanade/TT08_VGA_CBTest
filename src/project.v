@@ -67,7 +67,7 @@ wire [3:0] moving_x = pix_x + counter;
 wire [3:0] moving_y = pix_y + (counter >> 2); 
 wire [3:0] combined = moving_x[3:0] ^ moving_y[3:0]; 
 
-wire [19:0] distance_squared = (pix_x - CIRCLE_CENTER_X) * (pix_x - CIRCLE_CENTER_X) + 
+wire [17:0] distance_squared = (pix_x - CIRCLE_CENTER_X) * (pix_x - CIRCLE_CENTER_X) + 
                                (pix_y - CIRCLE_CENTER_Y) * (pix_y - CIRCLE_CENTER_Y);
 
 wire in_circle = (distance_squared <= (CIRCLE_RADIUS * CIRCLE_RADIUS));
