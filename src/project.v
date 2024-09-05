@@ -138,7 +138,8 @@ module tt_um_tinytapeout_logo_screensaver (
   end
 
 endmodule
-module tt_um_vga_example (
+
+module bitmap_rom (
     input wire [6:0] x,
     input wire [6:0] y,
     output wire pixel
