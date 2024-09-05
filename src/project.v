@@ -29,7 +29,6 @@ module tt_um_vga_example (
 
   // Configuration
   wire cfg_tile = ui_in[0];
-  wire cfg_solid_color = ui_in[1];
 
   // TinyVGA PMOD
   assign uo_out  = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
@@ -62,7 +61,7 @@ module tt_um_vga_example (
 
   bitmap_rom rom1 (
       .x(x[6:0]),
-      .y(y[6:0]),
+      .y(y[6:1]),
       .pixel(pixel_value)
   );
 
@@ -71,7 +70,7 @@ module tt_um_vga_example (
       .rrggbb(pallete_color)
   );
 
-  assign color = 3'd6;
+  assign color = pallete_color;
 
   // RGB output logic
   always @(posedge clk) begin
