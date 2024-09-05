@@ -6,9 +6,9 @@
 
 `default_nettype none
 
-parameter LOGO_SIZE = 128;  // Size of the logo in pixels
-parameter DISPLAY_WIDTH = 640;  // VGA display width
-parameter DISPLAY_HEIGHT = 480;  // VGA display height
+// parameter LOGO_SIZE = 128;  // Size of the logo in pixels
+// parameter DISPLAY_WIDTH = 640;  // VGA display width
+// parameter DISPLAY_HEIGHT = 480;  // VGA display height
 
 `define COLOR_WHITE 3'd7
 
@@ -65,7 +65,7 @@ module tt_um_vga_cbtest (
   // reg dir_y;
 
   wire pixel_value;
-  reg [2:0] color_index;
+  // reg [2:0] color_index;
   wire [5:0] pallete_color;
   wire [5:0] color;
 
@@ -80,12 +80,12 @@ module tt_um_vga_cbtest (
   );
 
   palette palette_inst (
-      .color_index(color_index),
+      .color_index(3'd6),
       .rrggbb(pallete_color)
   );
 
-  wire [5:0] gradient_color = {1'b1, y[6:2] - x[6:2]};
-  assign color = cfg_solid_color ? pallete_color : gradient_color;
+  // wire [5:0] gradient_color = {1'b1, y[6:2] - x[6:2]};
+  assign color = pallete_color;
 
   // RGB output logic
   always @(posedge clk) begin
