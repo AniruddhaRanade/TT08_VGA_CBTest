@@ -11,7 +11,7 @@ parameter DISPLAY_HEIGHT = 480;  // VGA display height
 
 `define COLOR_WHITE 3'd7
 
-module tt_um_tinytapeout_logo_screensaver (
+module tt_um_vga_example (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -105,37 +105,37 @@ module tt_um_tinytapeout_logo_screensaver (
   end
 
   // Bouncing logic
-  always @(posedge clk) begin
-    if (~rst_n) begin
-      logo_left <= 200;
-      logo_top <= 200;
-      dir_y <= 0;
-      dir_x <= 1;
-      color_index <= 0;
-    end else begin
-      prev_y <= pix_y;
-      if (pix_y == 0 && prev_y != pix_y) begin
-        logo_left <= logo_left + (dir_x ? 1 : -1);
-        logo_top  <= logo_top + (dir_y ? 1 : -1);
-        if (logo_left - 1 == 0 && !dir_x) begin
-          dir_x <= 1;
-          color_index <= color_index + 1;
-        end
-        if (logo_left + 1 == DISPLAY_WIDTH - LOGO_SIZE && dir_x) begin
-          dir_x <= 0;
-          color_index <= color_index + 1;
-        end
-        if (logo_top - 1 == 0 && !dir_y) begin
-          dir_y <= 1;
-          color_index <= color_index + 1;
-        end
-        if (logo_top + 1 == DISPLAY_HEIGHT - LOGO_SIZE && dir_y) begin
-          dir_y <= 0;
-          color_index <= color_index + 1;
-        end
-      end
-    end
-  end
+  // always @(posedge clk) begin
+  //   if (~rst_n) begin
+  //     logo_left <= 200;
+  //     logo_top <= 200;
+  //     dir_y <= 0;
+  //     dir_x <= 1;
+  //     color_index <= 0;
+  //   end else begin
+  //     prev_y <= pix_y;
+  //     if (pix_y == 0 && prev_y != pix_y) begin
+  //       logo_left <= logo_left + (dir_x ? 1 : -1);
+  //       logo_top  <= logo_top + (dir_y ? 1 : -1);
+  //       if (logo_left - 1 == 0 && !dir_x) begin
+  //         dir_x <= 1;
+  //         color_index <= color_index + 1;
+  //       end
+  //       if (logo_left + 1 == DISPLAY_WIDTH - LOGO_SIZE && dir_x) begin
+  //         dir_x <= 0;
+  //         color_index <= color_index + 1;
+  //       end
+  //       if (logo_top - 1 == 0 && !dir_y) begin
+  //         dir_y <= 1;
+  //         color_index <= color_index + 1;
+  //       end
+  //       if (logo_top + 1 == DISPLAY_HEIGHT - LOGO_SIZE && dir_y) begin
+  //         dir_y <= 0;
+  //         color_index <= color_index + 1;
+  //       end
+  //     end
+  //   end
+  // end
 
 endmodule
 
