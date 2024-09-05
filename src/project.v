@@ -56,8 +56,8 @@ module tt_um_vga_example (
   wire [5:0] pallete_color;
   wire [5:0] color;
 
-  wire [9:0] x = pix_x - logo_left;
-  wire [9:0] y = pix_y - logo_top;
+  wire [9:0] x = pix_x;
+  wire [9:0] y = pix_y;
   wire logo_pixels = cfg_tile || (x[9:7] == 0 && y[9:7] == 0);
 
   bitmap_rom rom1 (
@@ -67,12 +67,11 @@ module tt_um_vga_example (
   );
 
   palette palette_inst (
-      .color_index(color_index),
+      .color_index(3'd6),
       .rrggbb(pallete_color)
   );
 
-  wire [5:0] gradient_color = {1'b1, y[6:2] - x[6:2] + logo_left[6:2]};
-  assign color = cfg_solid_color ? pallete_color : gradient_color;
+  assign color = 3'd6;
 
   // RGB output logic
   always @(posedge clk) begin
