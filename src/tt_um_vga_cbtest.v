@@ -7,7 +7,7 @@
 `default_nettype none
 `define COLOR_WHITE 3'd7
 
-module tt_um_vga_cbtest (
+module tt_um_vga_cbtest  (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -42,7 +42,7 @@ module tt_um_vga_cbtest (
   // Suppress unused signals warning
   wire _unused_ok = &{ena, ui_in[7:1], uio_in};
 
-  vga_sync_generator vga_sync_gen (
+  hvsync_generator vga_sync_gen (
       .clk(clk),
       .reset(~rst_n),
       .hsync(hsync),
@@ -52,7 +52,10 @@ module tt_um_vga_cbtest (
       .vpos(pix_y)
   );
 
-  wire pixel_value;
+
+  wire red_pixel_value;
+  wire green_pixel_value;
+  wire blue_pixel_value;
   wire [5:0] pallete_color;
   wire [5:0] color;
 
@@ -63,11 +66,13 @@ module tt_um_vga_cbtest (
   bitmap_rom rom1 (
       .x(x[6:0]),
       .y(y[6:0]),
-      .pixel(pixel_value)
+      .red_pixel(red_pixel_value),
+      .green_pixel(green_pixel_value),
+      .blue_pixel(blue_pixel_value)
   );
 
   palette palette_inst (
-      .color_index(3'd6),
+      .color_index(3'd7),
       .rrggbb(pallete_color)
   );
 
@@ -84,11 +89,11 @@ module tt_um_vga_cbtest (
       G <= 0;
       B <= 0;
       if (video_active && logo_pixels) begin
-        R <= pixel_value ? color[5:4] : 0;
-        G <= pixel_value ? color[3:2] : 0;
-        B <= pixel_value ? color[1:0] : 0;
+        R <= red_pixel_value ? color[5:4] : 0;
+        G <= green_pixel_value ? color[3:2] : 0;
+        B <= blue_pixel_value ? color[1:0] : 0;
       end
     end
   end
-    
+
 endmodule
