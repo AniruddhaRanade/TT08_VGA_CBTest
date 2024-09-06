@@ -23,7 +23,7 @@ module tt_um_vga_cbtest (
   reg [1:0] G;
   reg [1:0] B;
   wire video_active;
-  wire [6:0] pix_x;
+  wire [9:0] pix_x;
   wire [9:0] pix_y;
 
   // TinyVGA PMOD
@@ -49,10 +49,10 @@ module tt_um_vga_cbtest (
   wire [2:0] pixel_value;
   wire [5:0] color;
 
-    wire logo_pixels = (pix_x[6:4] == 2 && pix_y[9:7] == 1);
+    wire logo_pixels = (pix_x[9:7] == 2 && pix_y[9:7] == 1);
 
   bitmap_rom rom1 (
-      .x(pix_x[3:0]),
+      .x(pix_x[6:0]),
       .y(pix_y[6:0]),
       .pixel(pixel_value[2:0])
   );
