@@ -1,5 +1,5 @@
 module bitmap_rom (
-    input wire [3:0] x,
+    input wire [6:0] x,
     input wire [6:0] y,
     output wire [2:0] pixel
 );
@@ -2056,7 +2056,7 @@ module bitmap_rom (
     mem[2047] = 3'd0;
   end
 
-    wire [10:0] addr = {y[6:0], x[3:0]};
+    wire [10:0] addr = {y[6:0], x[6:3]};
   assign pixel[2:0] = mem[addr];
 
 endmodule
