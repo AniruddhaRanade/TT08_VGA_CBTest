@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2024 Tiny Tapeout LTD
  * SPDX-License-Identifier: Apache-2.0
- * Author: Uri Shaked
  */
 
 `default_nettype none
@@ -29,7 +28,7 @@ module tt_um_vga_cbtest (
   wire [9:0] pix_y;
 
   // Configuration
-  wire cfg_tile = ui_in[0];
+  // wire cfg_tile = ui_in[0];
   // wire cfg_solid_color = ui_in[1];
 
   // TinyVGA PMOD
@@ -58,7 +57,7 @@ module tt_um_vga_cbtest (
 
   wire [9:0] x = pix_x;
   wire [9:0] y = pix_y;
-  wire logo_pixels = cfg_tile || (x[9:7] == 0 && y[9:7] == 0);
+  // wire logo_pixels = cfg_tile || (x[9:7] == 0 && y[9:7] == 0);
 
   bitmap_rom rom1 (
       .x(x[6:0]),
