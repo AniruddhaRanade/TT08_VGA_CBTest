@@ -52,7 +52,7 @@ module tt_um_vga_cbtest (
   wire logo_pixels = (pix_x[9:7] == 2 && pix_y[9:7] == 1);
 
   bitmap_rom rom1 (
-      .x(pix_x[6:0]),
+      .x(pix_x[6:3]),
       .y(pix_y[6:0]),
       .pixel(pixel_value[2:0])
   );
@@ -73,9 +73,9 @@ module tt_um_vga_cbtest (
       G <= 0;
       B <= 0;
       if (video_active && logo_pixels) begin
-        R <= color[5:4];
-        G <= color[3:2];
-        B <= color[1:0];
+      R <= color[5:4];
+      G <= color[3:2];
+      B <= color[1:0];
       end
     end
   end
