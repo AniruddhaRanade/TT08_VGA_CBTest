@@ -82,7 +82,7 @@ module tt_um_vga_cbtest (
       R <= 0;
       G <= 0;
       B <= 0;
-      if (video_active && logo_pixels) begin
+      if (video_active) begin
         R <= pixel_value ? color[5:4] : 0;
         G <= pixel_value ? color[3:2] : 0;
         B <= pixel_value ? color[1:0] : 0;
