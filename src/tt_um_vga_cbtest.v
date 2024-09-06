@@ -41,7 +41,7 @@ module tt_um_vga_cbtest  (
   // Suppress unused signals warning
   wire _unused_ok = &{ena, ui_in[7:1], uio_in};
 
-  hvsync_generator vga_sync_gen (
+  vga_sync_generator vga_sync_gen (
       .clk(clk),
       .reset(~rst_n),
       .hsync(hsync),
