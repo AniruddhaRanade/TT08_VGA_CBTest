@@ -9,12 +9,12 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Generate VGA output displaying Ishihara plates
+Generates VGA output for displaying [Ishihara](https://en.wikipedia.org/wiki/Ishihara_test) plates used for conducting a color blindness test. 
 
 ## How to test
 
-This project will work out of the box. Just connect a VGA display via TinyVGA PMOD
+This project will work out of the box. Just connect a VGA display via [TinyVGA PMOD](https://github.com/mole99/tiny-vga). 
 
 ## External hardware
 
-TinyVGA PMOD to connect to a VGA display
+[TinyVGA PMOD](https://github.com/mole99/tiny-vga) to connect to a VGA display
