@@ -52,8 +52,8 @@ module tt_um_vga_cbtest (
   wire logo_pixels = (pix_x[9:7] == 2 && pix_y[9:7] == 1);
 
   bitmap_rom rom1 (
-      .x(x[6:0]),
-      .y(y[6:0]),
+      .x(pix_x[6:0]),
+      .y(pix_y[6:0]),
       .pixel(pixel_value[2:0])
   );
 
