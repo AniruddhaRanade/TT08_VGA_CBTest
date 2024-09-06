@@ -1,6 +1,6 @@
 # Tiny Tapeout project information
 project:
-  title:        "Color Blind Test using VGA"      # Project title
+  title:        "Generate VGA output for Color Blindness Test"      # Project title
   author:       "Krushnasis Pradhan, Aniruddha Ranade"      # Your name
   discord:      "31arr_10684"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
   description:  "Generate VGA output which shall display the Ishihara Plates"      # One line description of what your project does
